@@ -1,0 +1,118 @@
+|tb
+SW[0] => comf2_ei:LScomf_ei.B[0]
+SW[1] => comf2_ei:LScomf_ei.B[1]
+SW[2] => comf2_ei:MScomf_ei.B[0]
+SW[3] => comf2_ei:MScomf_ei.B[1]
+SW[4] => comf2_ei:LScomf_ei.A[0]
+SW[5] => comf2_ei:LScomf_ei.A[1]
+SW[6] => comf2_ei:MScomf_ei.A[0]
+SW[7] => comf2_ei:MScomf_ei.A[1]
+SW[8] => ~NO_FANOUT~
+SW[9] => ~NO_FANOUT~
+LEDR[0] <= comf2_ei:LScomf_ei.AEQB
+LEDR[1] <= comf2_ei:LScomf_ei.ALTB
+LEDR[2] <= comf2_ei:LScomf_ei.AGTB
+
+
+|tb|comf2_ei:LScomf_ei
+A[0] => comf2:two_bit_com.A[0]
+A[1] => comf2:two_bit_com.A[1]
+B[0] => comf2:two_bit_com.B[0]
+B[1] => comf2:two_bit_com.B[1]
+AGB => ei:Exp_interface.AGB
+ALB => ei:Exp_interface.ALB
+AQB => ei:Exp_interface.AQB
+AGTB <= ei:Exp_interface.AGTB
+ALTB <= ei:Exp_interface.ALTB
+AEQB <= ei:Exp_interface.AEQB
+
+
+|tb|comf2_ei:LScomf_ei|comf2:two_bit_com
+A[0] => GT.IN0
+A[0] => GT.IN0
+A[0] => LT.IN0
+A[0] => LT.IN0
+A[1] => GT.IN0
+A[1] => GT.IN1
+A[1] => LT.IN0
+A[1] => LT.IN1
+A[1] => LT.IN0
+B[0] => LT.IN0
+B[0] => LT.IN1
+B[0] => GT.IN1
+B[0] => GT.IN1
+B[1] => LT.IN1
+B[1] => LT.IN1
+B[1] => LT.IN1
+B[1] => GT.IN1
+B[1] => GT.IN1
+GT <= GT.DB_MAX_OUTPUT_PORT_TYPE
+LT <= LT.DB_MAX_OUTPUT_PORT_TYPE
+EQ <= EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|tb|comf2_ei:LScomf_ei|ei:Exp_interface
+AGB => AGTB.IN1
+ALB => ALTB.IN1
+AQB => AGTB.IN0
+AQB => ALTB.IN0
+AQB => AEQB.IN0
+GT => AGTB.IN1
+LT => ALTB.IN1
+EQ => AEQB.IN1
+AGTB <= AGTB.DB_MAX_OUTPUT_PORT_TYPE
+ALTB <= ALTB.DB_MAX_OUTPUT_PORT_TYPE
+AEQB <= AEQB.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|tb|comf2_ei:MScomf_ei
+A[0] => comf2:two_bit_com.A[0]
+A[1] => comf2:two_bit_com.A[1]
+B[0] => comf2:two_bit_com.B[0]
+B[1] => comf2:two_bit_com.B[1]
+AGB => ei:Exp_interface.AGB
+ALB => ei:Exp_interface.ALB
+AQB => ei:Exp_interface.AQB
+AGTB <= ei:Exp_interface.AGTB
+ALTB <= ei:Exp_interface.ALTB
+AEQB <= ei:Exp_interface.AEQB
+
+
+|tb|comf2_ei:MScomf_ei|comf2:two_bit_com
+A[0] => GT.IN0
+A[0] => GT.IN0
+A[0] => LT.IN0
+A[0] => LT.IN0
+A[1] => GT.IN0
+A[1] => GT.IN1
+A[1] => LT.IN0
+A[1] => LT.IN1
+A[1] => LT.IN0
+B[0] => LT.IN0
+B[0] => LT.IN1
+B[0] => GT.IN1
+B[0] => GT.IN1
+B[1] => LT.IN1
+B[1] => LT.IN1
+B[1] => LT.IN1
+B[1] => GT.IN1
+B[1] => GT.IN1
+GT <= GT.DB_MAX_OUTPUT_PORT_TYPE
+LT <= LT.DB_MAX_OUTPUT_PORT_TYPE
+EQ <= EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|tb|comf2_ei:MScomf_ei|ei:Exp_interface
+AGB => AGTB.IN1
+ALB => ALTB.IN1
+AQB => AGTB.IN0
+AQB => ALTB.IN0
+AQB => AEQB.IN0
+GT => AGTB.IN1
+LT => ALTB.IN1
+EQ => AEQB.IN1
+AGTB <= AGTB.DB_MAX_OUTPUT_PORT_TYPE
+ALTB <= ALTB.DB_MAX_OUTPUT_PORT_TYPE
+AEQB <= AEQB.DB_MAX_OUTPUT_PORT_TYPE
+
+

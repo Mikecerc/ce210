@@ -1,0 +1,77 @@
+-- tb2: Top-level module and test bench for SND
+-- The numbers of 2 requesting students with the highest priorities 
+-- among all the requesting students will be display on HEX2 and HEX0
+
+-- Fill in 3 blanks
+
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.all;
+USE work.dig1pack.all;
+
+ENTITY tb IS 
+PORT (SW   : IN		STD_LOGIC_VECTOR	(9 DOWNTO 0);
+		  LEDR	:	OUT	STD_LOGIC_VECTOR	(9 DOWNTO 0);
+		  HEX0, 
+		  HEX1, 
+		  HEX2, 
+		  HEX3, 
+		  HEX4, 
+		  HEX5	: OUT 	STD_LOGIC_VECTOR	(6 DOWNTO 0)	
+		  );		
+END tb;
+
+ARCHITECTURE Structure OF tb IS
+
+	-- Intermediate signals defined here: (They are generated locally and consumed locally as well)
+
+	SIGNAL	nobody_1, nobody_2, 
+				somebody_1, somebody_2 	: STD_LOGIC;
+
+	SIGNAL	student_1, student_2   : STD_LOGIC_VECTOR (2 DOWNTO 0);
+	
+	SIGNAL	student_1_4bit, 
+				student_2_4bit				      : STD_LOGIC_VECTOR (3 DOWNTO 0);
+	
+	SIGNAL	student_1_decoded,  
+				masked_req            	 :	STD_LOGIC_VECTOR (7 DOWNTO 0);
+				
+
+BEGIN
+	LEDR(7 DOWNTO 0) <= SW(7 DOWNTO 0); 	-- Display request lines
+	LEDR(9 DOWNTO 8) <= "00";					       -- Make sure the unused LEDRs are off.
+	
+	masked_req <= student_1_decoded AND SW (7 DOWNTO 0);	-- 1st winner is eliminated here
+
+ 	student_1_4bit <= '0' & student_1;
+ 	student_2_4bit <= '0' & student_2;
+  
+ 	somebody_1 <= NOT nobody_1;
+ 	somebody_2 <= NOT nobody_2;
+  
+ -- Instantiate pri twice:
+	priority_1:	pri 	PORT MAP (SW (7 DOWNTO 0), nobody_1, student_1);
+	
+	-- ********** Fill in the blank. See Figure 7 as well as component declaration for pri. **********	
+	priority_2: pri 	PORT MAP (masked_req,nobody_2,student_2);
+	
+	
+	-- Instantiate dcd
+	-- ********** Fill in the blank. See Figure 7 as we ll as component declaration for dcd **********
+	dcd_for_1: 	dcd 	PORT MAP (student_1,'0',student_1_decoded);
+	
+	
+	-- Instantiate hex7seg to display the No of student with the highest priority on HEX2:
+	decoder_1: 	hex7seg 	PORT MAP (student_1_4bit, somebody_1, HEX2); 
+	
+	-- Instantiate hex7seg to display the No of student with the second highest priority on HEX0:	
+	-- ********** Fill in the blank. See Figure 7 as well as component declaration for hex7seg **********
+	decoder_2: 	hex7seg 	PORT MAP (student_2_4bit,somebody_2,HEX0);
+	
+	 
+	-- Turn off unused 7-seg displays
+	HEX1 <= "1111111";
+	HEX3 <= "1111111";
+	HEX4 <= "1111111";
+	HEX5 <= "1111111";
+ 
+END Structure;

@@ -1,0 +1,36 @@
+-- comf2_ei.vhd
+LIBRARY ieee;
+USE ieee.std_logic_1164.all; 
+
+ENTITY comf2_ei IS 
+PORT (			A, B 		: IN		STD_LOGIC_VECTOR (1 DOWNTO 0);
+		AGB, ALB, AQB		: IN		STD_LOGIC;
+		AGTB, ALTB, AEQB	: OUT	STD_LOGIC
+  );
+END comf2_ei;
+ARCHITECTURE Structure OF comf2_ei IS
+-- Notify the compiler of the components to be used in comf2_ei 
+	COMPONENT comf2 IS		
+		PORT (		   A, B	: IN			STD_LOGIC_VECTOR (1 DOWNTO 0);
+				GT, LT, EQ	: BUFFER	STD_LOGIC
+		);		
+	END COMPONENT;
+	COMPONENT ei IS 		-- Expansion Interface 
+		PORT (AGB, ALB, AQB, GT, LT, EQ	: IN		STD_LOGIC;
+					  AGTB, ALTB, AEQB	: OUT	STD_LOGIC
+		);
+	END COMPONENT;	
+	SIGNAL	Greater, Less, Equal	: STD_LOGIC;	--Intermediate signals invisible in outside world
+
+BEGIN
+	-- Instantiate comf2
+-- ********** Fill in the blanks. See Figure 6 and component comf2 declaration. **********
+	two_bit_com: comf2 
+	PORT MAP (A,B,GT,LT,EQ);                        
+
+-- Instantiate ei 
+-- ********** Fill in the blanks. See Figure 6 and component ei declaration. **********
+	Exp_interface: ei 
+	PORT MAP (
+
+END Structure;
